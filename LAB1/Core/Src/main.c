@@ -64,6 +64,7 @@ uint16_t LastButtonMatrix = 0;
 int state , laststate;
 int Numpad = 0;
 int check;
+int i;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -139,9 +140,11 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 512) {
 						state = 1;
+					} else if (ButtonMatrix == 8192) {
+						state = 0;
+					} else if (ButtonMatrix == 4096) {
+						state = 0;
 					}
-					else if (ButtonMatrix == 8192) {
-						state = 0;}
 
 					else {
 						state = 13;
@@ -151,15 +154,12 @@ int main(void)
 
 			case 1:
 				laststate = state;
-				if (check == 1)
-				{
+				if (check == 1) {
 					if (ButtonMatrix == 2) {
 						state = 2;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 0;
-					}
-					else {
+					} else {
 						state = 13;
 					}
 				}
@@ -170,8 +170,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 256) {
 						state = 3;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 1;
 					} else {
 						state = 13;
@@ -184,8 +183,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 2) {
 						state = 4;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 2;
 					} else {
 						state = 13;
@@ -198,8 +196,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 8) {
 						state = 5;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 3;
 					} else {
 						state = 13;
@@ -212,8 +209,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 32) {
 						state = 6;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 4;
 					} else {
 						state = 13;
@@ -226,8 +222,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 8) {
 						state = 7;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 5;
 					} else {
 						state = 13;
@@ -240,8 +235,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 8) {
 						state = 8;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 6;
 					} else {
 						state = 13;
@@ -254,8 +248,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 8) {
 						state = 9;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 7;
 					} else {
 						state = 13;
@@ -268,8 +261,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 8) {
 						state = 10;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 8;
 					} else {
 						state = 13;
@@ -282,8 +274,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 64) {
 						state = 11;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 9;
 					} else {
 						state = 13;
@@ -296,8 +287,7 @@ int main(void)
 				if (check == 1) {
 					if (ButtonMatrix == 32768) {
 						state = 12;
-					}
-					else if (ButtonMatrix == 8192) {
+					} else if (ButtonMatrix == 8192) {
 						state = 10;
 					} else {
 						state = 13;
@@ -317,17 +307,18 @@ int main(void)
 				}
 				break;
 
-			case 13://กดผิด
+			case 13: //กดผิด
 				if (check == 1) {
 					if (ButtonMatrix == 4096) {
 						state = 0;
-					}
-					else if (ButtonMatrix == 8192) {
-						state = laststate;
-					}
-					else
-					{
-						laststate = state;
+					} else if (ButtonMatrix == 8192) {
+						if (i == 0) {
+							state = laststate;
+						} else {
+							i = i - 1;
+						}
+					} else {
+						i++;
 					}
 				}
 				break;
